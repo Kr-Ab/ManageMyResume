@@ -5,6 +5,7 @@ const cors          = require("cors");
 const passport      = require("passport");
 const mongoose      = require("mongoose");
 const config        = require('./config/database');
+const fileUpload    = require('express-fileupload');
 
 mongoose.connect(config.database);
 mongoose.connection.on('connected', () => {
@@ -16,6 +17,7 @@ mongoose.connection.on('err', (err) => {
 })
 
 const app = express();
+app.use(fileUpload());
 const users = require('./routes/users');
 
 app.use(cors());

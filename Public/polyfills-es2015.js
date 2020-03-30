@@ -3033,7 +3033,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Collage Docs\6th Sem\WT Lab\ScoreMyResume\Frontend\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! D:\Collage Docs\6th Sem\WT Lab\ManageMyResume\Frontend\src\polyfills.ts */"./src/polyfills.ts");
 
 
 /***/ })

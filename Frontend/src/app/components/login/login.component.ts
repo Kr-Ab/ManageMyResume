@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.authenticateUser(user).subscribe(data => {
-      console.log(data);
       if(data.sucess){
         this.authService.storeUserData(data.token, data.user)
         this.flashMessage.show("Logged In", {cssClass: 'alert-success', timeout : 3000});

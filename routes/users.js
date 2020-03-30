@@ -4,14 +4,15 @@ const User = require("../models/user");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const config = require("../config/database");
-
+const multer = require('multer')
 //Register
 router.post('/register', (req, res, next) => {
     let newUser = new User({
         name : req.body.name,
         email :  req.body.email,
         username : req.body.username,
-        password : req.body.password
+        password : req.body.password,
+        resume : null
     });
 
     User.addUser(newUser, (err, user) => {
@@ -37,7 +38,7 @@ router.post('/authenticate', (req, res, next) => {
         User.comparePassword(password, user.password, (err, isMatch) => {
             if(err) throw err;
             if(isMatch){
-                const token = jwt.sign({data: user}, config.secret, {
+                const token = jwt.sign({data: user.username}, config.secret, {
                     expiresIn : 604800 // 1 week
                 });
 
@@ -48,7 +49,8 @@ router.post('/authenticate', (req, res, next) => {
                         id: user.id,
                         name:user.name,
                         username:user.username,
-                        email:user.email
+                        email:user.email,
+                        resume:user.resume
                     }
                 })
             }
@@ -66,5 +68,19 @@ router.post('/authenticate', (req, res, next) => {
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     res.json({user : req.user})
 });
+
+router.put('/upload', (req,res) => {
+    User.findOneAndUpdate(
+        { "username" : req.body.username },
+        { $set : { "resume" : req.files.upload }},
+        (err) => {
+            if(err){
+                res.json({Success : false, msg : "Failed to Upload File"});
+            }else{
+                res.json({Success : true, msg : "File Uploaded succesfully"});
+            }
+        }
+    )
+})
 
 module.exports = router;

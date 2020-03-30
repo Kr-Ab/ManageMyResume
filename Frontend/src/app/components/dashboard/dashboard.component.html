@@ -1,8 +1,9 @@
-<h2 class="page-header">Dashboard</h2>
-<p>Welcome to your Dashboard</p>
-<a href = "https://drive.google.com/uc?id=14HuDyF2156_eAZadaXFnxOLbRu_sE8IQOcsiNfZL2Es">lol</a>
-<div class="embed-container">
-	<div class="embed-framewrapper-xxl">
-		<iframe style="width: auto; height: auto;" src="https://drive.google.com/uc?id=14HuDyF2156_eAZadaXFnxOLbRu_sE8IQOcsiNfZL2Es"></iframe>
-	</div>
+<h1>Welcome to your Dashboard</h1>
+{{resume.data}}
+<div *ngIf = "resume == null">
+	<h1>Please Upload a Resume</h1>
+</div>
+<div *ngIf = 'resume != null'>
+	<h1>This is your Resume</h1>
+	<embed id='resumeview' width = 100% height = 1100px type="application/pdf" src="">
 </div>

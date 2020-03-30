@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   user : any;
+  file : File;
   constructor(private authService : AuthService,
+              private flashMessage:FlashMessagesService,
               private router : Router) { }
 
   ngOnInit(): void {
@@ -22,6 +25,22 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  onUploadSubmit(){
+    let inputStream = <HTMLInputElement>document.getElementById("resume")
+    let inputfile = inputStream.files[0];
+    this.authService.uploadFile({
+      username : this.user.username,
+      filedata : inputfile
+    }).subscribe(data => {
+      if(data.Success){
+        this.flashMessage.show("File Uploaded", {cssClass: 'alert-success', timeout : 3000});
+        this.router.navigate(['/dashboard']);
+      }else{
+        this.flashMessage.show("Failed To upload File", {cssClass: 'alert-danger', timeout : 3000});
+        this.router.navigate(['/profile']);
+      }
+    });
+  }  
 
 
 }

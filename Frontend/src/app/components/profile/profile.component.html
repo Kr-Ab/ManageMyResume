@@ -4,4 +4,11 @@
         <li class="list-group-item">Username : {{user.username}}</li>
         <li class="list-group-item">Email : {{user.email}}</li>
     </ul>
+    <form (submit)="onUploadSubmit()">
+        <div class="form-group">
+            <label> Your Resume PDF File </label>
+            <input type="file" [(ngModel)]="file" name="file" class="form-control" id="resume">
+          </div>
+          <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
 </div>

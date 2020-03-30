@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable({
@@ -36,6 +37,15 @@ export class AuthService {
     return this.http.get('http://localhost:8080/users/profile', {headers: headers})
     .pipe(map((res:any) => res))
   }
+
+  uploadFile(file){
+    var formdata = new FormData()
+    formdata.append('username',file.username);
+    formdata.append('upload',file.filedata);
+    return this.http.put('http://localhost:8080/users/upload', formdata)
+    .pipe(map((res:any) => res))
+  }
+
 
   storeUserData(token, user){
     localStorage.setItem('id_token', token);
