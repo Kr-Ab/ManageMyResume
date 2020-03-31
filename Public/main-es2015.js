@@ -255,7 +255,6 @@ function DashboardComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-const _c0 = function () { return {}; };
 class DashboardComponent {
     constructor(authService, flashMessage, router) {
         this.authService = authService;
@@ -265,15 +264,22 @@ class DashboardComponent {
     ngOnInit() {
         this.authService.getProfile().subscribe(profile => {
             this.user = profile.user;
-            document.getElementById("resumeview").setAttribute('src', "data:application/pdf;base64," + this.user.resume.data);
+            this.resume = profile.user.resume;
+            this.run();
         }, err => {
             console.log(err);
             return false;
         });
     }
+    run() {
+        if (this.user.resume != null) {
+            let view = document.getElementById("resumeview");
+            view.setAttribute('src', "data:application/pdf;base64," + this.user.resume.data);
+        }
+    }
 }
 DashboardComponent.ɵfac = function DashboardComponent_Factory(t) { return new (t || DashboardComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](angular2_flash_messages__WEBPACK_IMPORTED_MODULE_2__["FlashMessagesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"])); };
-DashboardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: DashboardComponent, selectors: [["app-dashboard"]], decls: 5, vars: 4, consts: [[4, "ngIf"], ["id", "resumeview", "width", "100%", "height", "1100px", "type", "application/pdf", "src", ""]], template: function DashboardComponent_Template(rf, ctx) { if (rf & 1) {
+DashboardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: DashboardComponent, selectors: [["app-dashboard"]], decls: 5, vars: 2, consts: [[4, "ngIf"], ["id", "resumeview", "width", "100%", "height", "1100px", "type", "application/pdf", "src", ""]], template: function DashboardComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "h1");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Welcome to your Dashboard");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -282,9 +288,9 @@ DashboardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "embed", 1);
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.resume == _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](2, _c0));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.resume == null);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.resume != _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](3, _c0));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.resume != null);
     } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuY3NzIn0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DashboardComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
@@ -395,11 +401,11 @@ class LoginComponent {
         this.authService.authenticateUser(user).subscribe(data => {
             if (data.sucess) {
                 this.authService.storeUserData(data.token, data.user);
-                this.flashMessage.show("Logged In", { cssClass: 'alert-success', timeout: 3000 });
+                this.flashMessage.show("Logged In", { cssClass: 'alert-success', timeout: 1000 });
                 this.router.navigate(['/dashboard']);
             }
             else {
-                this.flashMessage.show(data.msg, { cssClass: 'alert-danger', timeout: 3000 });
+                this.flashMessage.show(data.msg, { cssClass: 'alert-danger', timeout: 1000 });
                 this.router.navigate(['/login']);
             }
         });
@@ -540,7 +546,7 @@ class NavbarComponent {
     }
     onLogoutClick() {
         this.authService.logout();
-        this.flashMessage.show("Logged Out", { cssClass: 'alert-success', timeout: 3000 });
+        this.flashMessage.show("Logged Out", { cssClass: 'alert-success', timeout: 1000 });
         this.router.navigate(['/login']);
         return false;
     }
@@ -686,11 +692,11 @@ class ProfileComponent {
             filedata: inputfile
         }).subscribe(data => {
             if (data.Success) {
-                this.flashMessage.show("File Uploaded", { cssClass: 'alert-success', timeout: 3000 });
+                this.flashMessage.show("File Uploaded", { cssClass: 'alert-success', timeout: 1000 });
                 this.router.navigate(['/dashboard']);
             }
             else {
-                this.flashMessage.show("Failed To upload File", { cssClass: 'alert-danger', timeout: 3000 });
+                this.flashMessage.show("Failed To upload File", { cssClass: 'alert-danger', timeout: 1000 });
                 this.router.navigate(['/profile']);
             }
         });
@@ -755,22 +761,21 @@ class RegisterComponent {
             password: this.password
         };
         if (!this.validateService.validateRegister(user)) {
-            this.flashMessage.show("Please fill all the fields", { cssClass: 'alert-danger', timeout: 3000 });
+            this.flashMessage.show("Please fill all the fields", { cssClass: 'alert-danger', timeout: 1000 });
             return false;
         }
         if (!this.validateService.validateEmail(user.email)) {
-            this.flashMessage.show("Please enter correct email ID", { cssClass: 'alert-danger', timeout: 3000 });
+            this.flashMessage.show("Please enter correct email ID", { cssClass: 'alert-danger', timeout: 1000 });
             return false;
         }
         //Register User
         this.authService.registerUser(user).subscribe(data => {
-            console.log(data);
             if (data.Success) {
-                this.flashMessage.show("User Registered", { cssClass: 'alert-success', timeout: 3000 });
+                this.flashMessage.show("User Registered", { cssClass: 'alert-success', timeout: 1000 });
                 this.router.navigate(['/login']);
             }
             else {
-                this.flashMessage.show("User Exists", { cssClass: 'alert-danger', timeout: 3000 });
+                this.flashMessage.show("User Exists", { cssClass: 'alert-danger', timeout: 1000 });
                 this.router.navigate(['/register']);
             }
         });

@@ -489,10 +489,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     }
 
-    var _c0 = function _c0() {
-      return {};
-    };
-
     var DashboardComponent =
     /*#__PURE__*/
     function () {
@@ -511,11 +507,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           this.authService.getProfile().subscribe(function (profile) {
             _this.user = profile.user;
-            document.getElementById("resumeview").setAttribute('src', "data:application/pdf;base64," + _this.user.resume.data);
+            _this.resume = profile.user.resume;
+
+            _this.run();
           }, function (err) {
             console.log(err);
             return false;
           });
+        }
+      }, {
+        key: "run",
+        value: function run() {
+          if (this.user.resume != null) {
+            var view = document.getElementById("resumeview");
+            view.setAttribute('src', "data:application/pdf;base64," + this.user.resume.data);
+          }
         }
       }]);
 
@@ -530,7 +536,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       type: DashboardComponent,
       selectors: [["app-dashboard"]],
       decls: 5,
-      vars: 4,
+      vars: 2,
       consts: [[4, "ngIf"], ["id", "resumeview", "width", "100%", "height", "1100px", "type", "application/pdf", "src", ""]],
       template: function DashboardComponent_Template(rf, ctx) {
         if (rf & 1) {
@@ -550,11 +556,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.resume == _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](2, _c0));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.resume == null);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.resume != _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](3, _c0));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.resume != null);
         }
       },
       directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"]],
@@ -800,14 +806,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
               _this2.flashMessage.show("Logged In", {
                 cssClass: 'alert-success',
-                timeout: 3000
+                timeout: 1000
               });
 
               _this2.router.navigate(['/dashboard']);
             } else {
               _this2.flashMessage.show(data.msg, {
                 cssClass: 'alert-danger',
-                timeout: 3000
+                timeout: 1000
               });
 
               _this2.router.navigate(['/login']);
@@ -1139,7 +1145,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.authService.logout();
           this.flashMessage.show("Logged Out", {
             cssClass: 'alert-success',
-            timeout: 3000
+            timeout: 1000
           });
           this.router.navigate(['/login']);
           return false;
@@ -1460,14 +1466,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (data.Success) {
               _this4.flashMessage.show("File Uploaded", {
                 cssClass: 'alert-success',
-                timeout: 3000
+                timeout: 1000
               });
 
               _this4.router.navigate(['/dashboard']);
             } else {
               _this4.flashMessage.show("Failed To upload File", {
                 cssClass: 'alert-danger',
-                timeout: 3000
+                timeout: 1000
               });
 
               _this4.router.navigate(['/profile']);
@@ -1617,7 +1623,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!this.validateService.validateRegister(user)) {
             this.flashMessage.show("Please fill all the fields", {
               cssClass: 'alert-danger',
-              timeout: 3000
+              timeout: 1000
             });
             return false;
           }
@@ -1625,26 +1631,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!this.validateService.validateEmail(user.email)) {
             this.flashMessage.show("Please enter correct email ID", {
               cssClass: 'alert-danger',
-              timeout: 3000
+              timeout: 1000
             });
             return false;
           } //Register User
 
 
           this.authService.registerUser(user).subscribe(function (data) {
-            console.log(data);
-
             if (data.Success) {
               _this5.flashMessage.show("User Registered", {
                 cssClass: 'alert-success',
-                timeout: 3000
+                timeout: 1000
               });
 
               _this5.router.navigate(['/login']);
             } else {
               _this5.flashMessage.show("User Exists", {
                 cssClass: 'alert-danger',
-                timeout: 3000
+                timeout: 1000
               });
 
               _this5.router.navigate(['/register']);

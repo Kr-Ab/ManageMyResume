@@ -33,10 +33,10 @@ export class ProfileComponent implements OnInit {
       filedata : inputfile
     }).subscribe(data => {
       if(data.Success){
-        this.flashMessage.show("File Uploaded", {cssClass: 'alert-success', timeout : 3000});
+        this.flashMessage.show("File Uploaded", {cssClass: 'alert-success', timeout : 1000});
         this.router.navigate(['/dashboard']);
       }else{
-        this.flashMessage.show("Failed To upload File", {cssClass: 'alert-danger', timeout : 3000});
+        this.flashMessage.show("Failed To upload File", {cssClass: 'alert-danger', timeout : 1000});
         this.router.navigate(['/profile']);
       }
     });

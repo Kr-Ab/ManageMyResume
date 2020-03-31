@@ -19,15 +19,18 @@ export class DashboardComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
       this.resume = profile.user.resume;
-      if(this.resume != null){
-        let view = <HTMLObjectElement>document.getElementById("resumeview");
-        view.setAttribute('src', "data:application/pdf;base64," + this.user.resume.data);
-      }
+      this.run()
     },
     err => {
       console.log(err);
       return false;
     })
+    }
+  run(){
+    if(this.user.resume != null){
+      let view = <HTMLEmbedElement>document.getElementById("resumeview");
+      view.setAttribute('src', "data:application/pdf;base64," + this.user.resume.data);
+    }
   }
 }
 
