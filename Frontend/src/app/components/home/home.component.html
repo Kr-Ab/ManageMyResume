@@ -2,7 +2,8 @@
     <h1>ManageMyResume</h1>
     <p class="lead">Welcome to our custom Resume Management application built from scratch</p>
     <div>
-      <a class="btn btn-primary" [routerLink]="['/register']">Register</a> <a class="btn btn-default" [routerLink]="['/login']">Login</a>
+      <a class="btn btn-primary" [routerLink]="['/register']" *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">Register</a>
+      <a class="btn btn-default" [routerLink]="['/login']" *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">Login</a>
     </div>
   </div>
   

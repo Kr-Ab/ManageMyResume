@@ -28,18 +28,26 @@ export class ProfileComponent implements OnInit {
   onUploadSubmit(){
     let inputStream = <HTMLInputElement>document.getElementById("resume")
     let inputfile = inputStream.files[0];
-    this.authService.uploadFile({
-      username : this.user.username,
-      filedata : inputfile
-    }).subscribe(data => {
-      if(data.Success){
-        this.flashMessage.show("File Uploaded", {cssClass: 'alert-success', timeout : 1000});
-        this.router.navigate(['/dashboard']);
-      }else{
-        this.flashMessage.show("Failed To upload File", {cssClass: 'alert-danger', timeout : 1000});
-        this.router.navigate(['/profile']);
-      }
-    });
+    if(inputfile.size > 100000)
+    {
+      this.flashMessage.show("Failed To upload File. Please try again.", {cssClass: 'alert-danger', timeout : 1000});
+      this.router.navigate(['/profile']);
+    }
+    else
+    {
+      this.authService.uploadFile({
+        username : this.user.username,
+        filedata : inputfile
+      }).subscribe(data => {
+        if(data.Success){
+          this.flashMessage.show("File Uploaded", {cssClass: 'alert-success', timeout : 1000});
+          this.router.navigate(['/dashboard']);
+        }else{
+          this.flashMessage.show("Failed To upload File. Please try again.", {cssClass: 'alert-danger', timeout : 3000});
+          this.router.navigate(['/profile']);
+        }
+      });
+    }
   }  
 
 

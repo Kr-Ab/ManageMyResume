@@ -6,8 +6,8 @@
     </ul>
     <form (submit)="onUploadSubmit()">
         <div class="form-group">
-            <label> Your Resume PDF File </label>
-            <input type="file" [(ngModel)]="file" name="file" class="form-control" id="resume">
+            <label> Please select Your Resume PDF File (Note: Size must be less than 100KB) </label>
+            <input type="file" [(ngModel)]="file" name="file" class="form-control form-control-file" id="resume" accept=".pdf">
           </div>
           <input type="submit" class="btn btn-primary" value="Submit">
     </form>

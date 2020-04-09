@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable({
   providedIn: 'root'
