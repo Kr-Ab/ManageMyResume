@@ -13,12 +13,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactusComponent } from './components/contactus/contactus.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { EditprofileComponent } from './components/editprofile/editprofile.component';
 
 
 const appRoutes: Routes = [
@@ -26,6 +29,8 @@ const appRoutes: Routes = [
   {path:'register', component:RegisterComponent},
   {path:'login', component:LoginComponent},
   {path:'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
+  {path:'profile', component:ProfileComponent},
+  {path:'about', component:AboutComponent},
   {path:'profile', component:ProfileComponent}
 ]
 
@@ -37,7 +42,10 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    AboutComponent,
+    ContactusComponent,
+    EditprofileComponent
   ],
   imports: [
     BrowserModule,

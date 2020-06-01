@@ -5,11 +5,6 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto"><!--m right-->
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
-          <a class="nav-link" [routerLink]="['/']">Home <span></span></a>
-        </li>
-      </ul>
       <ul class="navbar-nav ml-auto"><!--m left-->
         <li class="nav-item" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
           <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>

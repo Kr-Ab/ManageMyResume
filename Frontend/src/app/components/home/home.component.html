@@ -5,5 +5,10 @@
       <a class="btn btn-primary" [routerLink]="['/register']" *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">Register</a>
       <a class="btn btn-default" [routerLink]="['/login']" *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">Login</a>
     </div>
-  </div>
+</div>
+<div class="jumbotron">
+  <center>
+    <a class="btn btn-primary" [routerLink]="['/about']">About</a>
+  </center>
+</div>
   
